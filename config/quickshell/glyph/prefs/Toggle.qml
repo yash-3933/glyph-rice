@@ -30,7 +30,7 @@ Rectangle {
         width: root.on ? root.width - 12 : height
         height: root.height - 12
         radius: Theme.corner(height / 2)
-        color: root.on ? Theme.fg : Theme.mute
+        color: root.on ? Theme.hi : Theme.mute
         Behavior on width { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
         Behavior on color { ColorAnimation { duration: Theme.t } }
         Rectangle {
@@ -38,7 +38,7 @@ Rectangle {
             width: 12
             height: 12
             radius: 6
-            color: root.on ? Theme.ink : Theme.s2
+            color: root.on ? Theme.onHi : Theme.s2
         }
     }
     Lb {
@@ -47,7 +47,7 @@ Rectangle {
         Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
         anchors.verticalCenter: parent.verticalCenter
         text: root.text
-        color: root.on ? Theme.ink : root.activeFocus ? Theme.fg : Theme.grey
+        color: root.on ? Theme.onHi : root.activeFocus ? Theme.fg : Theme.grey
         Behavior on color { ColorAnimation { duration: Theme.t } }
     }
     TapHandler { onTapped: root.flip() }

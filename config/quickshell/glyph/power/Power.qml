@@ -80,7 +80,7 @@ PanelWindow {
                     Num {
                         text: it.modelData[0]
                         font.pixelSize: it.on ? 168 : 66
-                        color: it.on ? Theme.fg : Theme.mute
+                        color: it.on ? Theme.hi : Theme.mute
                         Behavior on font.pixelSize { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                         Behavior on color { ColorAnimation { duration: Theme.t } }
                     }

@@ -212,8 +212,8 @@ PanelWindow {
                             width: chip.width + 32
                             height: chip.height + 20
                             radius: height / 2
-                            color: root.filter === index ? Theme.fg : "transparent"
-                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.filter === parent.index ? Theme.ink : Theme.grey }
+                            color: root.filter === index ? Theme.hi : "transparent"
+                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.filter === parent.index ? Theme.onHi : Theme.grey }
                             TapHandler { onTapped: { root.filter = parent.index; input.forceActiveFocus(); } }
                         }
                     }
@@ -285,7 +285,7 @@ PanelWindow {
         width: rows.width
         height: 64
         radius: Theme.corner(32)
-        color: on ? Theme.fg : "transparent"
+        color: on ? Theme.hi : "transparent"
 
         Rectangle {
             id: dot
@@ -294,7 +294,7 @@ PanelWindow {
             width: 48
             height: 48
             radius: 24
-            color: row.type === "color" ? root.rgb(row.modelData.text) : row.on ? Theme.ink : Theme.s2
+            color: row.type === "color" ? root.rgb(row.modelData.text) : row.on ? Theme.onHi : Theme.s2
             border { width: row.type === "color" ? 1 : 0; color: Theme.s3 }
             Icon {
                 anchors.centerIn: parent
@@ -325,12 +325,12 @@ PanelWindow {
                 textFormat: Text.PlainText
                 text: row.m ? `${row.m[2]}×${row.m[3]}` : row.modelData.text.replace(/\s+/g, " ").trim()
                 font { family: Theme.ui; pixelSize: 15; weight: Font.Medium }
-                color: row.on ? Theme.ink : Theme.fg
+                color: row.on ? Theme.onHi : Theme.fg
             }
             Lb {
                 text: row.m ? `image · ${row.m[1]} · ${row.m[0]}` : row.type
                 px: 10
-                color: row.on ? Theme.ink : Theme.grey
+                color: row.on ? Theme.onHi : Theme.grey
                 opacity: row.on ? 0.6 : 1
             }
         }
@@ -338,8 +338,8 @@ PanelWindow {
             id: tail
             anchors { right: parent.right; rightMargin: 20; verticalCenter: parent.verticalCenter }
             spacing: 12
-            Icon { anchors.verticalCenter: parent.verticalCenter; visible: root.held.includes(row.modelData.id); text: "\u{F0403}"; font.pixelSize: 16; color: row.on ? Theme.ink : Theme.fg }
-            Num { anchors.verticalCenter: parent.verticalCenter; text: String(row.index + 1).padStart(2, "0"); font.pixelSize: 26; color: row.on ? Theme.ink : Theme.mute }
+            Icon { anchors.verticalCenter: parent.verticalCenter; visible: root.held.includes(row.modelData.id); text: "\u{F0403}"; font.pixelSize: 16; color: row.on ? Theme.onHi : Theme.fg }
+            Num { anchors.verticalCenter: parent.verticalCenter; text: String(row.index + 1).padStart(2, "0"); font.pixelSize: 26; color: row.on ? Theme.onHi : Theme.mute }
         }
         // клик — выбрать, по выбранной — скопировать
         TapHandler {

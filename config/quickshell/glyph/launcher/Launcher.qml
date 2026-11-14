@@ -246,8 +246,8 @@ PanelWindow {
                             width: chip.width + 32
                             height: chip.height + 20
                             radius: height / 2
-                            color: root.mode === index ? Theme.fg : "transparent"
-                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.mode === parent.index ? Theme.ink : Theme.grey }
+                            color: root.mode === index ? Theme.hi : "transparent"
+                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.mode === parent.index ? Theme.onHi : Theme.grey }
                             TapHandler { onTapped: { root.mode = parent.index; input.forceActiveFocus(); } }
                         }
                     }
@@ -374,7 +374,7 @@ PanelWindow {
             width: 88
             height: 88
             radius: 44
-            color: cell.modelData.fill ?? (cell.on ? Theme.fg : Theme.s2)
+            color: cell.modelData.fill ?? (cell.on ? Theme.hi : Theme.s2)
             border { width: cell.modelData.fill ? 1 : 0; color: Theme.s3 } // чёрный образец на панели
             // образец под курсором — кольцо вокруг: залить белым — пропал бы цвет. dot — акцент палитры, что стоит сейчас — точка
             Rectangle { visible: cell.on && !!cell.modelData.fill; anchors.centerIn: parent; width: 104; height: 104; radius: 52; color: "transparent"; border { width: 2; color: Theme.fg } }

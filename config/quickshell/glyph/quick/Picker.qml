@@ -102,7 +102,7 @@ Rectangle {
                 width: list.width
                 height: 56
                 radius: Theme.corner(28)
-                color: hov.hovered ? Theme.s3 : "transparent"
+                color: hov.hovered ? Theme.hover : "transparent"
 
                 Rectangle {
                     id: ic
@@ -111,12 +111,12 @@ Rectangle {
                     width: 44
                     height: 44
                     radius: 22
-                    color: row.on ? Theme.fg : Theme.s3
+                    color: row.on ? Theme.hi : Theme.s3
                     Icon {
                         anchors.centerIn: parent
                         text: root.isWifi ? root.bars(row.o) : root.btIcon(row.o.icon)
                         font.pixelSize: 19
-                        color: row.on ? Theme.ink : Theme.fg
+                        color: row.on ? Theme.onHi : Theme.fg
                         // идёт соединение — иконка дышит
                         SequentialAnimation on opacity {
                             running: row.busy
@@ -169,8 +169,8 @@ Rectangle {
                 passwordCharacter: "•"
                 font { family: Theme.mono; pixelSize: 16; letterSpacing: 2 }
                 color: Theme.fg
-                selectionColor: Theme.fg
-                selectedTextColor: Theme.ink
+                selectionColor: Theme.hi
+                selectedTextColor: Theme.onHi
                 clip: true
                 onAccepted: if (text) go.send()
                 Lb { visible: !pw.text; anchors.verticalCenter: parent.verticalCenter; text: "enter password"; color: Theme.mute }

@@ -229,7 +229,7 @@ Scope {
                                 height: 26
                                 radius: 13
                                 color: "transparent"
-                                border { width: 1.5; color: index === root.ink ? Theme.fg : "transparent" }
+                                border { width: 1.5; color: index === root.ink ? Theme.hi : "transparent" }
                             }
                             Rectangle {
                                 anchors.centerIn: parent
@@ -255,7 +255,7 @@ Scope {
                                 width: modelData + 4
                                 height: width
                                 radius: width / 2
-                                color: index === root.size ? Theme.fg : Theme.mute
+                                color: index === root.size ? Theme.hi : Theme.mute
                                 Behavior on color { ColorAnimation { duration: Theme.t } }
                             }
                             TapHandler { onTapped: root.size = index }

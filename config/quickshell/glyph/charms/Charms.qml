@@ -134,8 +134,8 @@ PanelWindow {
                             width: chip.width + 32
                             height: chip.height + 20
                             radius: height / 2
-                            color: root.tab === index ? Theme.fg : "transparent"
-                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.tab === parent.index ? Theme.ink : Theme.grey }
+                            color: root.tab === index ? Theme.hi : "transparent"
+                            Lb { id: chip; anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.tab === parent.index ? Theme.onHi : Theme.grey }
                             TapHandler { onTapped: { root.tab = parent.index; input.forceActiveFocus(); } }
                         }
                     }
@@ -183,7 +183,7 @@ PanelWindow {
                             Rectangle {
                                 anchors { fill: parent; margins: 3 }
                                 radius: Math.min(width, height) / 2
-                                color: d.on ? Theme.fg : Theme.s2
+                                color: d.on ? Theme.hi : Theme.s2
                                 // Fit — лишние раскладки на каждой плитке; нужен длинным каомодзи и ZWJ-эмодзи: шрифт постарше
                                 // не склеит последовательность, и она развалится на 2–4 глифа шире клетки
                                 Text {
@@ -195,7 +195,7 @@ PanelWindow {
                                     fontSizeMode: g.index === 0 || d.modelData[0].includes("\u200d") ? Text.Fit : Text.FixedSize
                                     minimumPixelSize: 6
                                     font { family: Theme.mono; pixelSize: g.index === 0 ? 20 : 32 }
-                                    color: d.on ? Theme.ink : Theme.fg
+                                    color: d.on ? Theme.onHi : Theme.fg
                                 }
                             }
                             // клик — выбрать, по выбранной — скопировать

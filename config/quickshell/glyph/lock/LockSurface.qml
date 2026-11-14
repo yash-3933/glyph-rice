@@ -66,9 +66,9 @@ WlSessionLockSurface {
             y: 230
             opacity: root.ph(0, 0.5)
             transform: Translate { y: -40 * (1 - root.ph(0, 0.5)) }
-            Num { text: Theme.hh(clock.date); font.pixelSize: 400 }
+            Num { textFormat: Text.StyledText; text: Theme.ones(Theme.hh(clock.date)); font.pixelSize: 400 }
             Num { text: ":"; font.pixelSize: 400; opacity: root.blink || !Theme.state.blink ? 1 : 0.2 }
-            Num { text: Qt.formatTime(clock.date, "mm"); font.pixelSize: 400 }
+            Num { textFormat: Text.StyledText; text: Theme.ones(Qt.formatTime(clock.date, "mm")); font.pixelSize: 400 }
         }
         Lb {
             anchors.horizontalCenter: parent.horizontalCenter

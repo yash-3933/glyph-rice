@@ -21,7 +21,7 @@ Rectangle {
     readonly property color mute: "#4A4A4A"
     readonly property color grey: "#8C8C8C"
     readonly property color fg: "#F2F2F2"
-    readonly property color red: "#D71921"
+    readonly property color red: "#F50514" // OnePlus red, matching the shell's accent
 
     FontLoader { id: doto; source: "fonts/Doto[ROND,wght].ttf" }
     FontLoader { id: grotesk; source: "fonts/SpaceGrotesk-Regular.otf" }
@@ -405,7 +405,9 @@ Rectangle {
                     Text {
                         required property string modelData
                         required property int index
-                        text: modelData
+                        // OnePlus's clock signature: every digit 1 in red
+                        textFormat: Text.StyledText
+                        text: modelData.replace(/1/g, `<font color="${root.red}">1</font>`)
                         font { family: doto.name; pixelSize: 130; weight: Font.Black; variableAxes: ({ "ROND": 100, "wght": 900 }) }
                         topPadding: -0.175 * font.pixelSize
                         bottomPadding: topPadding

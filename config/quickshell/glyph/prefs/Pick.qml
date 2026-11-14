@@ -42,7 +42,7 @@ Rectangle {
         width: root.seg
         height: root.height - 12
         radius: height / 2
-        color: Theme.fg
+        color: Theme.hi
         Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
     }
     Repeater {
@@ -56,7 +56,7 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: modelData
-            color: index === root.cur ? Theme.ink : Theme.grey
+            color: index === root.cur ? Theme.onHi : Theme.grey
             TapHandler { onTapped: root.picked(parent.index) }
         }
     }

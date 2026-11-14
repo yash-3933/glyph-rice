@@ -59,9 +59,9 @@ PanelWindow {
         Row {
             x: 182
             y: 150
-            Num { text: Theme.hh(clock.date); font.pixelSize: 300 }
+            Num { textFormat: Text.StyledText; text: Theme.ones(Theme.hh(clock.date)); font.pixelSize: 300 }
             Num { text: ":"; font.pixelSize: 300; opacity: Theme.state.blink && root.dim ? 0.2 : 1 }
-            Num { text: Qt.formatTime(clock.date, "mm"); font.pixelSize: 300 }
+            Num { textFormat: Text.StyledText; text: Theme.ones(Qt.formatTime(clock.date, "mm")); font.pixelSize: 300 }
         }
         Lb {
             x: 190
@@ -150,7 +150,7 @@ PanelWindow {
                     y: 24
                     width: parent.width - 48
                     Lb { text: root.en.monthName(clock.date.getMonth()) }
-                    Num { topPadding: lead + 8; text: clock.date.getDate(); font.pixelSize: 118 }
+                    Num { topPadding: lead + 8; textFormat: Text.StyledText; text: Theme.ones(clock.date.getDate()); font.pixelSize: 118 }
                     Row {
                         width: parent.width
                         topPadding: 14

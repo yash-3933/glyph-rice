@@ -71,7 +71,7 @@ Rectangle {
                 width: track.cell
                 height: parent.height - 8
                 radius: height / 2
-                color: Theme.fg
+                color: Theme.hi
                 Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
             }
             Repeater {
@@ -83,7 +83,7 @@ Rectangle {
                     x: 4 + track.cell * index
                     width: track.cell
                     height: track.height
-                    Lb { anchors.centerIn: parent; px: 10; text: cell.modelData; color: ch.cur === cell.index ? Theme.ink : Theme.grey }
+                    Lb { anchors.centerIn: parent; px: 10; text: cell.modelData; color: ch.cur === cell.index ? Theme.onHi : Theme.grey }
                     TapHandler { onTapped: { root.touched(); ch.picked(cell.index); } }
                     HoverHandler { cursorShape: Qt.PointingHandCursor }
                 }

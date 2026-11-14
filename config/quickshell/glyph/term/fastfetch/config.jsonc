@@ -15,7 +15,7 @@
     },
     "modules": [
         "break",
-        { "type": "title", "color": { "user": "1;97", "at": "37", "host": "1;97" } },
+        { "type": "title", "color": { "user": "1;31", "at": "37", "host": "1;97" } },
         { "type": "separator", "string": "─", "outputColor": "37" },
         { "type": "os", "key": "OS        " },
         { "type": "kernel", "key": "KERNEL    ", "format": "{release}" },
@@ -23,7 +23,7 @@
         { "type": "command", "key": "SHELL     ", "text": "echo quickshell · glyph" },
         { "type": "terminal", "key": "TERM      ", "format": "{pretty-name}" },
         { "type": "terminalfont", "key": "FONT      " },
-        { "type": "uptime", "key": "UPTIME    " },
+        { "type": "uptime", "key": "UPTIME    ", "format": "{?days}{#31}{days}{#97} d {?}{?hours}{#31}{hours}{#97} hr {?}{#31}{minutes}{#97} min" },
         { "type": "memory", "key": "MEMORY    " },
         "break",
         { "type": "colors", "symbol": "circle" },

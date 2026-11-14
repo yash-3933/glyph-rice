@@ -32,7 +32,12 @@ Singleton {
     readonly property color ink: light ? s1 : bg // текст на белой плитке
     readonly property color accent: pal.accent // максимум одна вещь на экране, и только «живое»
     readonly property color red: pal.red       // тревога: батарея, критическое, не тот пароль
+    // Highlights are the accent everywhere, so hovered and selected things read the same in every panel
+    readonly property color hi: accent        // selected or focused: tile, pill, ring
+    readonly property color onHi: on(accent)  // text and icons sitting on it
+    readonly property color hover: Qt.rgba(accent.r, accent.g, accent.b, 0.4) // pointer over it, short of selected
     readonly property color nothingRed: "#D71921"
+    readonly property color onePlusRed: "#F50514" // the stock palette's one red: OnePlus's, a shade hotter than Nothing's
     readonly property color glow: light ? Qt.rgba(0, 0, 0, 0.3) : Qt.rgba(1, 1, 1, 0.6)
     readonly property color scrim: fade(bg, light ? 0.8 : 0.74)
 
@@ -92,7 +97,7 @@ Singleton {
         const k = Object.assign({ paint: st.paint, scheme: st.scheme, at: st.paintAt, variant: st.variant, light: st.light }, o);
         if (k.paint === "scheme") return Schemes.ALL.find(p => p.id === k.scheme) ?? Schemes.ALL[0];
         // 16 ANSI glyph: в светлой 0↔15 и 7↔8, чтобы белое не терялось на белом
-        const base = { light: k.light, c: k.light ? glyphLight : glyphDark, accent: nothingRed, red: nothingRed,
+        const base = { light: k.light, c: k.light ? glyphLight : glyphDark, accent: onePlusRed, red: onePlusRed,
                        ansi: k.light ? [15, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12, 13, 14, 0].map(i => ansi[i]) : ansi };
         const src = tones[Math.min(k.at, tones.length - 1)];
         return k.paint === "wall" && src ? Schemes.dynamic(src, k.variant, base) : base;
@@ -153,6 +158,10 @@ Singleton {
     function corner(px) { return px * st.corners / 100; }
     // часы по настройке 12/24: «09» или «9»
     function hh(d) { const h = d.getHours(); return st.clock24 ? String(h).padStart(2, "0") : String(h % 12 || 12); }
+    // OnePlus's clock signature: every digit 1 in the accent colour. For a Num with textFormat: Text.StyledText
+    function ones(s) { return String(s).replace(/1/g, `<font color="${accent}">1</font>`); }
+    // Only the leading character in the accent colour (the stopwatch). Also for a Num with textFormat: Text.StyledText
+    function first(s) { return String(s).replace(/^./, c => `<font color="${accent}">${c}</font>`); }
     function hex(c) { return c.toString().slice(1, 7).toUpperCase(); }
 
     readonly property string riceState: (Quickshell.env("XDG_STATE_HOME") || Quickshell.env("HOME") + "/.local/state") + "/rice"

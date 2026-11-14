@@ -115,12 +115,12 @@ PanelWindow {
                             readonly property bool today: d.toDateString() === clock.date.toDateString()
                             width: col.width / 7
                             height: 46
-                            Rectangle { anchors.centerIn: parent; visible: day.today; width: 38; height: 38; radius: 19; color: Theme.fg }
+                            Rectangle { anchors.centerIn: parent; visible: day.today; width: 38; height: 38; radius: 19; color: Theme.accent }
                             Text {
                                 anchors.centerIn: parent
                                 text: day.d.getDate()
                                 font { family: Theme.mono; pixelSize: 14 }
-                                color: day.today ? Theme.ink : !day.own ? Theme.mute : day.index % 7 > 4 ? Theme.grey : Theme.fg
+                                color: day.today ? Theme.on(Theme.accent) : !day.own ? Theme.mute : day.index % 7 > 4 ? Theme.grey : Theme.fg
                             }
                         }
                     }
@@ -136,7 +136,7 @@ PanelWindow {
                         Ring { anchors.fill: parent; n: 44; dot: 5; f: Focus.f }
                         Column {
                             anchors.centerIn: parent
-                            Num { anchors.horizontalCenter: parent.horizontalCenter; text: Focus.mmss(Focus.left); font.pixelSize: 38 }
+                            Num { anchors.horizontalCenter: parent.horizontalCenter; textFormat: Text.StyledText; text: Theme.first(Focus.mmss(Focus.left)); font.pixelSize: 38 }
                             Lb {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 topPadding: 10
@@ -161,8 +161,8 @@ PanelWindow {
                                     width: 44
                                     height: 44
                                     radius: 22
-                                    color: on ? Theme.fg : chipHov.hovered ? Theme.s3 : Theme.s2
-                                    Text { anchors.centerIn: parent; text: chip.modelData; font { family: Theme.mono; pixelSize: 13 } color: chip.on ? Theme.ink : Theme.fg }
+                                    color: on ? Theme.hi : chipHov.hovered ? Theme.hover : Theme.s2
+                                    Text { anchors.centerIn: parent; text: chip.modelData; font { family: Theme.mono; pixelSize: 13 } color: chip.on ? Theme.onHi : Theme.fg }
                                     HoverHandler { id: chipHov; cursorShape: Qt.PointingHandCursor }
                                     TapHandler { onTapped: Focus.set(chip.modelData) }
                                 }

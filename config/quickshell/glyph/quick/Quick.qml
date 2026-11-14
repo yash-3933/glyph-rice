@@ -98,7 +98,7 @@ PanelWindow {
                             x: 6
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: 14
-                            Num { anchors.verticalCenter: parent.verticalCenter; text: `${Theme.hh(clock.date)}:${Qt.formatTime(clock.date, "mm")}`; font.pixelSize: 44 }
+                            Num { anchors.verticalCenter: parent.verticalCenter; textFormat: Text.StyledText; text: Theme.ones(`${Theme.hh(clock.date)}:${Qt.formatTime(clock.date, "mm")}`); font.pixelSize: 44 }
                             Lb { anchors.verticalCenter: parent.verticalCenter; text: Qt.locale("en_US").toString(clock.date, "ddd d MMM") }
                         }
                         Row {
@@ -165,7 +165,7 @@ PanelWindow {
                                 width: anc.cell
                                 height: parent.height - 12
                                 radius: height / 2
-                                color: Theme.fg
+                                color: Theme.hi
                                 Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                             }
                             Repeater {
@@ -177,7 +177,7 @@ PanelWindow {
                                     x: 6 + anc.cell * index
                                     width: anc.cell
                                     height: anc.height
-                                    Lb { anchors.centerIn: parent; text: am.modelData[1]; color: anc.at === am.index ? Theme.ink : Theme.grey }
+                                    Lb { anchors.centerIn: parent; text: am.modelData[1]; color: anc.at === am.index ? Theme.onHi : Theme.grey }
                                     TapHandler { onTapped: { root.pin(); Sys.setAnc(am.modelData[0]); } }
                                     HoverHandler { cursorShape: Qt.PointingHandCursor }
                                 }
@@ -223,7 +223,7 @@ PanelWindow {
                                 width: modes.cell
                                 height: parent.height - 12
                                 radius: height / 2
-                                color: Theme.fg
+                                color: Theme.hi
                                 Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                             }
                             Repeater {
@@ -249,11 +249,11 @@ PanelWindow {
                                                     width: 4
                                                     height: 6 + index * 4
                                                     radius: 2
-                                                    color: index <= mc.index ? (mc.on ? Theme.ink : Theme.fg) : (mc.on ? Theme.mute : Theme.s3)
+                                                    color: index <= mc.index ? (mc.on ? Theme.onHi : Theme.fg) : (mc.on ? Theme.mute : Theme.s3)
                                                 }
                                             }
                                         }
-                                        Lb { anchors.verticalCenter: parent.verticalCenter; text: Rules.modes[mc.index].short; color: mc.on ? Theme.ink : Theme.grey }
+                                        Lb { anchors.verticalCenter: parent.verticalCenter; text: Rules.modes[mc.index].short; color: mc.on ? Theme.onHi : Theme.grey }
                                     }
                                     TapHandler { onTapped: { root.pin(); Rules.setMode(mc.index); } }
                                     HoverHandler { cursorShape: Qt.PointingHandCursor }
@@ -265,9 +265,9 @@ PanelWindow {
                             width: 54
                             height: 54
                             radius: 27
-                            color: Rules.store.game ? Theme.fg : Theme.s2
+                            color: Rules.store.game ? Theme.hi : Theme.s2
                             Behavior on color { ColorAnimation { duration: Theme.t } }
-                            Icon { anchors.centerIn: parent; text: "\u{F0297}"; font.pixelSize: 22; color: Rules.store.game ? Theme.ink : Theme.fg }
+                            Icon { anchors.centerIn: parent; text: "\u{F0297}"; font.pixelSize: 22; color: Rules.store.game ? Theme.onHi : Theme.fg }
                             TapHandler { onTapped: { root.pin(); Rules.store.game = !Rules.store.game; } }
                             HoverHandler { cursorShape: Qt.PointingHandCursor }
                         }
@@ -413,7 +413,7 @@ PanelWindow {
         width: (col.width - 12) / 2
         height: 76
         radius: Theme.corner(38)
-        color: on ? Theme.fg : Theme.s2
+        color: on ? Theme.hi : Theme.s2
         Behavior on color { ColorAnimation { duration: Theme.t } }
         Rectangle {
             id: pi
@@ -422,19 +422,19 @@ PanelWindow {
             width: 52
             height: 52
             radius: 26
-            color: pill.on ? Theme.ink : Theme.s3
+            color: pill.on ? Theme.onHi : Theme.s3
             Icon { anchors.centerIn: parent; text: pill.icon; font.pixelSize: 22 }
         }
         Column {
             anchors { left: pi.right; leftMargin: 12; right: chev.left; rightMargin: 8; verticalCenter: parent.verticalCenter }
-            Text { text: pill.name; font { family: Theme.ui; pixelSize: 16; weight: Font.DemiBold } color: pill.on ? Theme.ink : Theme.fg }
+            Text { text: pill.name; font { family: Theme.ui; pixelSize: 16; weight: Font.DemiBold } color: pill.on ? Theme.onHi : Theme.fg }
             Text {
                 width: parent.width
                 elide: Text.ElideRight
                 textFormat: Text.PlainText
                 text: pill.sub
                 font { family: Theme.mono; pixelSize: 11; letterSpacing: 0.9; capitalization: Font.AllUppercase }
-                color: pill.on ? Theme.ink : Theme.fg
+                color: pill.on ? Theme.onHi : Theme.fg
                 opacity: 0.6
             }
         }
@@ -443,7 +443,7 @@ PanelWindow {
             anchors { right: parent.right; rightMargin: 20; verticalCenter: parent.verticalCenter }
             text: "\u{F0140}"
             font.pixelSize: 18
-            color: pill.on ? Theme.ink : Theme.fg
+            color: pill.on ? Theme.onHi : Theme.fg
             opacity: pill.picked ? 1 : 0.4
             rotation: pill.picked ? 180 : 0
             Behavior on rotation { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
@@ -467,9 +467,9 @@ PanelWindow {
             width: 68
             height: 68
             radius: 34
-            color: tile.on ? Theme.fg : Theme.s2
+            color: tile.on ? Theme.hi : Theme.s2
             Behavior on color { ColorAnimation { duration: Theme.t } }
-            Icon { anchors.centerIn: parent; text: tile.icon; font.pixelSize: 24; color: tile.on ? Theme.ink : Theme.fg }
+            Icon { anchors.centerIn: parent; text: tile.icon; font.pixelSize: 24; color: tile.on ? Theme.onHi : Theme.fg }
             TapHandler { onTapped: { root.pin(); tile.clicked(); } }
             TapHandler { acceptedButtons: Qt.RightButton; onTapped: { root.pin(); tile.menu(); } }
         }

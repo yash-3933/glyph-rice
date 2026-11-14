@@ -339,7 +339,7 @@ PanelWindow {
                         width: modeBox.cw
                         height: 46
                         radius: Theme.corner(23)
-                        color: Theme.fg
+                        color: Theme.hi
                         Behavior on x { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                     }
                     Row {
@@ -352,7 +352,7 @@ PanelWindow {
                                 required property int index
                                 width: modeBox.cw
                                 height: 46
-                                Lb { anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.mode === parent.index ? Theme.ink : Theme.grey }
+                                Lb { anchors.centerIn: parent; text: parent.modelData; px: 11; color: root.mode === parent.index ? Theme.onHi : Theme.grey }
                                 TapHandler { onTapped: root.route(parent.index) }
                             }
                         }
@@ -449,7 +449,7 @@ PanelWindow {
                         width: list.width
                         height: 52
                         radius: Theme.corner(26)
-                        color: on ? Theme.fg : index === root.cur ? Theme.s2 : Theme.fade(Theme.s2, 0)
+                        color: on ? Theme.hi : index === root.cur ? Theme.s2 : Theme.fade(Theme.s2, 0)
                         Behavior on color { ColorAnimation { duration: Theme.t } }
 
                         Num {
@@ -459,7 +459,7 @@ PanelWindow {
                             width: 50
                             text: row.w.cc ?? ""
                             font.pixelSize: 26
-                            color: row.on ? Theme.ink : Theme.fg
+                            color: row.on ? Theme.onHi : Theme.fg
                         }
                         Column {
                             anchors { left: cc.right; leftMargin: 10; right: ping.left; rightMargin: 16; verticalCenter: parent.verticalCenter }
@@ -469,7 +469,7 @@ PanelWindow {
                                 text: row.w.name ?? ""
                                 textFormat: Text.PlainText
                                 font { family: Theme.ui; pixelSize: 16; weight: Font.DemiBold }
-                                color: row.on ? Theme.ink : Theme.fg
+                                color: row.on ? Theme.onHi : Theme.fg
                             }
                             Lb {
                                 width: parent.width
@@ -477,7 +477,7 @@ PanelWindow {
                                 elide: Text.ElideRight
                                 text: row.w.sub ?? ""
                                 px: 10
-                                color: row.on ? Theme.ink : Theme.grey
+                                color: row.on ? Theme.onHi : Theme.grey
                                 opacity: row.on ? 0.6 : 1
                             }
                         }
@@ -492,8 +492,8 @@ PanelWindow {
                                 height: 6
                                 n: 5
                                 f: row.w.ms > 0 ? Math.max(0.2, 1 - row.w.ms / 500) : 0
-                                on: row.on ? Theme.ink : Theme.fg
-                                off: row.on ? Theme.fade(Theme.ink, 0.2) : Theme.s3
+                                on: row.on ? Theme.onHi : Theme.fg
+                                off: row.on ? Theme.fade(Theme.onHi, 0.2) : Theme.s3
                             }
                             Lb {
                                 anchors.verticalCenter: parent.verticalCenter
@@ -501,7 +501,7 @@ PanelWindow {
                                 horizontalAlignment: Text.AlignRight
                                 text: root.pinging && row.w.ms !== 0 ? "···" : row.w.ms ? `${row.w.ms} ms` : "—"
                                 px: 11
-                                color: row.on ? Theme.ink : Theme.grey
+                                color: row.on ? Theme.onHi : Theme.grey
                             }
                         }
                         TapHandler { onTapped: { root.cur = row.index; root.go(row.index); } }
@@ -534,7 +534,7 @@ PanelWindow {
         width: 164
         height: 76
         radius: Theme.corner(38)
-        color: on ? Theme.fg : Theme.s2
+        color: on ? Theme.hi : Theme.s2
         Behavior on color { ColorAnimation { duration: Theme.t } }
         Rectangle {
             id: pi
@@ -543,18 +543,18 @@ PanelWindow {
             width: 52
             height: 52
             radius: 26
-            color: pill.on ? Theme.ink : Theme.s3
+            color: pill.on ? Theme.onHi : Theme.s3
             Icon { anchors.centerIn: parent; text: pill.icon; font.pixelSize: 22 }
         }
         Column {
             anchors { left: pi.right; leftMargin: 12; right: parent.right; rightMargin: 14; verticalCenter: parent.verticalCenter }
-            Text { text: pill.name; font { family: Theme.ui; pixelSize: 16; weight: Font.DemiBold } color: pill.on ? Theme.ink : Theme.fg }
+            Text { text: pill.name; font { family: Theme.ui; pixelSize: 16; weight: Font.DemiBold } color: pill.on ? Theme.onHi : Theme.fg }
             Text {
                 width: parent.width
                 elide: Text.ElideRight
                 text: pill.sub
                 font { family: Theme.mono; pixelSize: 11; letterSpacing: 0.9; capitalization: Font.AllUppercase }
-                color: pill.on ? Theme.ink : Theme.fg
+                color: pill.on ? Theme.onHi : Theme.fg
                 opacity: 0.6
             }
         }

@@ -62,15 +62,15 @@ PanelWindow {
                 y: root.vert ? 18 : (parent.height - height) / 2
                 width: 34
                 height: 34
-                Ring { anchors.fill: parent; n: 16; dot: 3 }
+                Ring { anchors.fill: parent; n: 16; dot: 3; on: markArea.containsMouse ? Theme.accent : Theme.fg } // under the pointer: the accent, like the tray
                 Rectangle {
                     anchors.centerIn: parent
                     width: 9
                     height: 9
                     radius: 4.5
-                    color: !Sys.live ? Theme.fg : Qt.colorEqual(Theme.accent, Theme.fg) ? Theme.red : Theme.accent // monochrome: акцент = fg
+                    color: markArea.containsMouse ? Theme.accent : !Sys.live ? Theme.fg : Qt.colorEqual(Theme.accent, Theme.fg) ? Theme.red : Theme.accent // monochrome: акцент = fg
                 }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: root.markClicked() }
+                MouseArea { id: markArea; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.markClicked() }
             }
 
             // воркспейсы: текущий вытягивается в белую пилюлю, занятые серые, пустые — линия
@@ -92,10 +92,10 @@ PanelWindow {
                         width: root.vert ? 8 : len
                         height: root.vert ? len : 8
                         radius: 4
-                        color: on ? Theme.fg : occ ? Theme.grey : Theme.s3
+                        color: on || wsArea.containsMouse ? Theme.hi : occ ? Theme.grey : Theme.s3 // under the pointer: the accent, like the tray
                         Behavior on len { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                         Behavior on color { ColorAnimation { duration: Theme.t } }
-                        MouseArea { anchors.fill: parent; anchors.margins: -6; onClicked: root.go(parent.n) }
+                        MouseArea { id: wsArea; anchors.fill: parent; anchors.margins: -6; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.go(parent.n) }
                     }
                 }
             }
@@ -127,9 +127,9 @@ PanelWindow {
                 anchors.centerIn: parent
                 TapHandler { onTapped: root.clockClicked() }
                 HoverHandler { cursorShape: Qt.PointingHandCursor }
-                Num { text: Theme.hh(clock.date); font.pixelSize: 30 }
+                Num { textFormat: Text.StyledText; text: Theme.ones(Theme.hh(clock.date)); font.pixelSize: 30 }
                 Num { visible: !root.vert; text: ":"; font.pixelSize: 30 }
-                Num { text: Qt.formatTime(clock.date, "mm"); font.pixelSize: 30 }
+                Num { textFormat: Text.StyledText; text: Theme.ones(Qt.formatTime(clock.date, "mm")); font.pixelSize: 30 }
                 Lb {
                     topPadding: root.vert ? 8 : 0
                     leftPadding: root.vert ? 0 : 12
@@ -154,14 +154,16 @@ PanelWindow {
                         sourceComponent: root.parts[modelData] ?? null
                         visible: !!sourceComponent && (modelData !== "battery" || root.bat.isLaptopBattery)
                         TapHandler { enabled: part.quick; onTapped: root.trayClicked() }
-                        HoverHandler { enabled: part.quick; cursorShape: Qt.PointingHandCursor }
+                        // under the pointer: the item turns the accent, like the power button
+                        readonly property bool hot: partHov.hovered
+                        HoverHandler { id: partHov; enabled: part.quick; cursorShape: Qt.PointingHandCursor }
                     }
                 }
             }
         }
     }
     readonly property var parts: ({ layout: layoutC, wifi: wifiC, bluetooth: btC, sound: soundC, notes: notesC, battery: batC, mode: modeC, power: powerC, cat: catC })
-    Component { id: layoutC; Lb { text: Sys.layout; px: 10 } }
+    Component { id: layoutC; Lb { text: Sys.layout; px: 10; color: parent?.hot ? Theme.accent : Theme.grey } }
     // кот RunCat: чем больше cpu, тем быстрее бежит (250 мс на кадр в простое, 50 на полной). cpu опрашивается, пока он в трее;
     // Binding не в делегате — уничтоженный значение не возвращает. Серый как есть, в светлой теме на белом теряется — чёрный, как buds
     Component {
@@ -185,7 +187,7 @@ PanelWindow {
             width: 20
             height: 18
             preferredRendererType: Shape.CurveRenderer
-            readonly property color ink: root.wifi?.connected ? Theme.fg : Theme.grey
+            readonly property color ink: parent?.hot ? Theme.accent : root.wifi?.connected ? Theme.fg : Theme.grey
             ShapePath {
                 strokeColor: wf.ink; strokeWidth: 2.2; capStyle: ShapePath.RoundCap; fillColor: "transparent"
                 PathAngleArc { centerX: 10; centerY: 15; radiusX: 5.5; radiusY: 5.5; startAngle: 220; sweepAngle: 100 }
@@ -206,13 +208,14 @@ PanelWindow {
         id: btC
         Icon {
             text: Bluetooth.defaultAdapter?.enabled ? "\u{F00AF}" : "\u{F00B2}"
-            color: Bluetooth.devices.values.some(d => d.connected) ? Theme.fg : Theme.grey
+            color: parent?.hot ? Theme.accent : Bluetooth.devices.values.some(d => d.connected) ? Theme.fg : Theme.grey
         }
     }
     Component {
         id: soundC
         Icon {
             text: Sys.muted ? "\u{F075F}" : "\u{F057E}"
+            color: parent?.hot ? Theme.accent : Theme.fg
             Notch { onNotch: d => Sys.setVol(Sys.vol + d * 0.05) }
         }
     }
@@ -220,7 +223,7 @@ PanelWindow {
         id: notesC
         Icon {
             text: Theme.state.dnd ? "\u{F009B}" : "\u{F009A}"
-            color: Notes.list.length ? Theme.fg : Theme.grey
+            color: parent?.hot ? Theme.accent : Notes.list.length ? Theme.fg : Theme.grey
         }
     }
     // слева батарея стоит, заряд растёт снизу; сверху — лежит, растёт слева. На зарядке — молния первой, заливка дышит, пока заряжается
@@ -237,25 +240,25 @@ PanelWindow {
             property real phase: 0
             readonly property real pulse: charging ? 0.675 + 0.325 * Math.cos(phase * Math.PI / 1.1) : 1
             Timer { running: batc.charging; interval: 50; repeat: true; onTriggered: batc.phase = (batc.phase + 0.05) % 2.2; onRunningChanged: batc.phase = 0 }
-            Icon { visible: batc.ac; text: "\u{F140B}"; font.pixelSize: 14 }
+            Icon { visible: batc.ac; text: "\u{F140B}"; font.pixelSize: 14; color: root.batHot ? Theme.accent : Theme.fg }
             Rectangle {
                 width: root.vert ? 14 : 26
                 height: root.vert ? 26 : 14
                 radius: 7
                 color: "transparent"
-                border { width: 1.5; color: Theme.grey }
+                border { width: 1.5; color: root.batHot ? Theme.accent : Theme.grey }
                 Rectangle {
                     x: 3
                     y: parent.height - 3 - height
                     width: root.vert ? parent.width - 6 : (parent.width - 6) * root.bat.percentage
                     height: root.vert ? (parent.height - 6) * root.bat.percentage : parent.height - 6
                     radius: 4
-                    color: root.batLow ? Theme.red : Theme.fg
+                    color: root.batLow ? Theme.red : root.batHot ? Theme.accent : Theme.fg
                     opacity: batc.pulse
                 }
             }
             // ширина — под «100»: сверху трей прижат вправо, 99 → 100 сдвигал бы всё левее
-            Lb { width: full.implicitWidth; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.bat.percentage * 100); px: 10 }
+            Lb { width: full.implicitWidth; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.bat.percentage * 100); px: 10; color: root.batHot ? Theme.accent : Theme.grey }
             Lb { id: full; visible: false; text: "100"; px: 10 }
         }
     }
@@ -278,7 +281,7 @@ PanelWindow {
                         width: 3
                         height: 5 + index * 3
                         radius: 1.5
-                        color: index <= Rules.mode ? Theme.fg : Theme.s3
+                        color: index <= Rules.mode ? (root.tickHot ? Theme.accent : Theme.fg) : Theme.s3
                     }
                 }
             }
@@ -290,7 +293,7 @@ PanelWindow {
         id: powerC
         Icon {
             text: "\u{F0425}"
-            color: pwr.hovered ? Theme.fg : Theme.grey
+            color: pwr.hovered ? Theme.accent : Theme.grey
             HoverHandler { id: pwr; cursorShape: Qt.PointingHandCursor }
             TapHandler { onTapped: root.powerClicked() }
         }
@@ -377,7 +380,7 @@ PanelWindow {
                                     width: 80
                                     height: 80
                                     radius: 40
-                                    color: mo.on ? Theme.fg : moHov.hovered ? Theme.s3 : Theme.s2
+                                    color: mo.on ? Theme.hi : moHov.hovered ? Theme.hover : Theme.s2
                                     Behavior on color { ColorAnimation { duration: Theme.t } }
                                     // засечки: сколько горит — такая сила
                                     Row {
@@ -391,7 +394,7 @@ PanelWindow {
                                                 width: 5
                                                 height: 8 + index * 6
                                                 radius: 2.5
-                                                color: index <= mo.index ? (mo.on ? Theme.ink : Theme.fg) : (mo.on ? Theme.mute : Theme.s3)
+                                                color: index <= mo.index ? (mo.on ? Theme.onHi : Theme.fg) : (mo.on ? Theme.mute : Theme.s3)
                                             }
                                         }
                                     }

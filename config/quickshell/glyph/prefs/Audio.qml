@@ -107,7 +107,7 @@ Row {
             height: Math.min(8, Math.max(1, side.list.length)) * 56 + 12
             radius: Theme.corner(34)
             color: Theme.s1
-            border { width: 1; color: box.activeFocus ? Theme.fg : Theme.s2 }
+            border { width: 1; color: box.activeFocus ? Theme.hi : Theme.s2 }
             activeFocusOnTab: true
             Keys.onPressed: e => {
                 if (e.key === Qt.Key_Left) side.pick(Math.max(side.cur, 0) - 1);
@@ -133,7 +133,7 @@ Row {
                     width: box.width - 12
                     height: 56
                     radius: Theme.corner(28)
-                    color: Theme.fg
+                    color: Theme.hi
                     Behavior on y { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                 }
                 Repeater {
@@ -154,7 +154,7 @@ Row {
                             width: 8
                             height: 8
                             radius: 4
-                            color: dv.on ? Theme.ink : Theme.s3
+                            color: dv.on ? Theme.onHi : Theme.s3
                         }
                         Text {
                             anchors { left: parent.left; leftMargin: 50; right: card.left; rightMargin: 16; verticalCenter: parent.verticalCenter }
@@ -162,7 +162,7 @@ Row {
                             text: dv.modelData.port
                             textFormat: Text.PlainText
                             font { family: Theme.ui; pixelSize: 19 }
-                            color: dv.on ? Theme.ink : Theme.grey
+                            color: dv.on ? Theme.onHi : Theme.grey
                             Behavior on color { ColorAnimation { duration: Theme.t } }
                         }
                         Lb {
@@ -170,7 +170,7 @@ Row {
                             anchors { right: parent.right; rightMargin: 24; verticalCenter: parent.verticalCenter }
                             text: dv.modelData.card
                             px: 10
-                            color: dv.on ? Theme.ink : Theme.mute
+                            color: dv.on ? Theme.onHi : Theme.mute
                         }
                         TapHandler {
                             onTapped: {

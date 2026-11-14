@@ -1,12 +1,12 @@
 /* glyph: чёрный, белые точки, один красный — палитра Theme.qml. Вкл и выбранное — белое с чёрным текстом, кнопки и поля — пилюли,
    красный — только опасное. Ссылку ~/.config/gtk-{3,4}.0/gtk.css ставит `rice` (term), у demonshot своя.
    Правила пользовательского css сильнее темы при любой специфичности: что задано здесь, задано и для всех состояний */
-@define-color accent_color #F2F2F2;
-@define-color accent_bg_color #F2F2F2;
+@define-color accent_color #F50514;
+@define-color accent_bg_color #F50514;
 @define-color accent_fg_color #000000;
-@define-color destructive_color #D71921;
-@define-color destructive_bg_color #D71921;
-@define-color destructive_fg_color #F2F2F2;
+@define-color destructive_color #F0434B;
+@define-color destructive_bg_color #F0434B;
+@define-color destructive_fg_color #000000;
 @define-color window_bg_color #000000;
 @define-color window_fg_color #F2F2F2;
 @define-color view_bg_color #0E0E0E;

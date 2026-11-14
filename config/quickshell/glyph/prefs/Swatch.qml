@@ -40,7 +40,7 @@ Column {
             height: width
             radius: width / 2
             color: "transparent"
-            border { width: 2; color: root.activeFocus ? Theme.fg : "transparent" }
+            border { width: 2; color: root.activeFocus ? Theme.hi : "transparent" }
         }
         Rectangle {
             id: disc

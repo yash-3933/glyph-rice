@@ -96,7 +96,7 @@ Column {
         width: lab.implicitWidth + 24
         height: lab.implicitHeight + 12
         radius: height / 2
-        color: root.activeFocus ? Theme.fg : "transparent"
-        Lb { id: lab; anchors.centerIn: parent; text: root.label; color: root.activeFocus ? Theme.ink : Theme.grey }
+        color: root.activeFocus ? Theme.hi : "transparent"
+        Lb { id: lab; anchors.centerIn: parent; text: root.label; color: root.activeFocus ? Theme.onHi : Theme.grey }
     }
 }

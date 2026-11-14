@@ -11,10 +11,10 @@ Rectangle {
     width: lb.width + 32
     height: 36
     radius: Theme.corner(18)
-    color: on ? Theme.fg : "transparent"
+    color: on ? Theme.hi : "transparent"
     Behavior on color { ColorAnimation { duration: Theme.t } }
 
-    Lb { id: lb; anchors.centerIn: parent; px: 11; color: parent.on ? Theme.ink : Theme.grey }
+    Lb { id: lb; anchors.centerIn: parent; px: 11; color: parent.on ? Theme.onHi : Theme.grey }
     TapHandler { onTapped: parent.clicked() }
     HoverHandler { cursorShape: Qt.PointingHandCursor }
 }

@@ -1,7 +1,15 @@
 # glyph: ~/dir › — каталог серым, стрелка белая, ошибка красная. Цвета — номерами ANSI, светлая тема kitty их переставит.
 # ~/.config/starship.toml ссылается сюда, пока жив glyph (rice)
 add_newline = false
-format = "$directory$git_branch$git_status$cmd_duration$character"
+# Left: only the red > to type after. Right: where you are and how the last
+# command went (exit code if it failed, time if it was slow, git, folder).
+format = "$character"
+right_format = "$status$cmd_duration$git_status$git_branch$directory"
+
+[status]
+disabled = false
+style = "red"
+format = "[$status]($style) "
 
 [directory]
 style = "white"
@@ -9,7 +17,7 @@ truncation_length = 3
 truncation_symbol = "…/"
 read_only = " ●"
 read_only_style = "red"
-format = "[$path]($style)[$read_only]($read_only_style) "
+format = "[$path]($style)[$read_only]($read_only_style)"
 
 [git_branch]
 symbol = ""
@@ -26,6 +34,6 @@ style = "bright-black"
 format = "[$duration]($style) "
 
 [character]
-success_symbol = "[›](bright-white)"
-error_symbol = "[›](red)"
-vimcmd_symbol = "[‹](bright-white)"
+success_symbol = "[>](bold red)"
+error_symbol = "[>](bold red)"
+vimcmd_symbol = "[<](bold red)"

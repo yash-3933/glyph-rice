@@ -52,9 +52,9 @@ Grid {
                     width: 64
                     height: 64
                     radius: 32
-                    color: !it.on ? Theme.s2 : root.dim.includes(it.modelData) ? Theme.grey : Theme.fg
+                    color: !it.on ? Theme.s2 : root.dim.includes(it.modelData) ? Theme.grey : Theme.hi
                     Behavior on color { ColorAnimation { duration: Theme.t } }
-                    Icon { anchors.centerIn: parent; text: root.icons[it.modelData] ?? ""; font.pixelSize: 26; color: it.on ? Theme.ink : Theme.grey }
+                    Icon { anchors.centerIn: parent; text: root.icons[it.modelData] ?? ""; font.pixelSize: 26; color: it.on ? Theme.onHi : Theme.grey }
                 }
                 TapHandler {
                     onTapped: {

@@ -330,7 +330,7 @@ PanelWindow {
                                 height: 58
                                 radius: Theme.corner(width * 0.18)
                                 color: Theme.s1
-                                border { width: on ? 2 : 1; color: on ? Theme.fg : Theme.s2 }
+                                border { width: on ? 2 : 1; color: on ? Theme.hi : Theme.s2 }
                                 GifDots { anchors { fill: parent; margins: 6 } path: th.modelData; bg: th.color; playing: gifPick.visible && root.visible }
                                 TapHandler {
                                     onTapped: {
@@ -406,7 +406,7 @@ PanelWindow {
                         height: 116
                         radius: Theme.corner(40)
                         color: Theme.s1
-                        border { width: 1; color: strip.activeFocus ? Theme.fg : Theme.s2 }
+                        border { width: 1; color: strip.activeFocus ? Theme.hi : Theme.s2 }
                         Behavior on width { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                         activeFocusOnTab: true
                         Keys.onPressed: e => {
@@ -446,9 +446,9 @@ PanelWindow {
                                         width: 56
                                         height: 56
                                         radius: 28
-                                        color: ds.hot ? Theme.fg : Theme.s2
+                                        color: ds.hot ? Theme.hi : Theme.s2
                                         border { width: ds.on && !ds.hot ? 1 : 0; color: Theme.fg }
-                                        Icon { anchors.centerIn: parent; text: root.icons[ds.modelData] ?? ""; font.pixelSize: 24; color: ds.hot ? Theme.ink : Theme.fg }
+                                        Icon { anchors.centerIn: parent; text: root.icons[ds.modelData] ?? ""; font.pixelSize: 24; color: ds.hot ? Theme.onHi : Theme.fg }
                                     }
                                     Lb { anchors.horizontalCenter: parent.horizontalCenter; text: ds.modelData; px: 10; color: ds.on ? Theme.fg : Theme.grey }
                                 }
@@ -526,7 +526,7 @@ PanelWindow {
                     height: bar.onTop ? 116 : n * 68 + 20
                     radius: Theme.corner(bar.onTop ? 40 : 44)
                     color: Theme.s1
-                    border { width: 1; color: col.activeFocus ? Theme.fg : Theme.s2 }
+                    border { width: 1; color: col.activeFocus ? Theme.hi : Theme.s2 }
                     Behavior on width { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                     Behavior on height { NumberAnimation { duration: Theme.t; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.glide } }
                     activeFocusOnTab: true
@@ -568,9 +568,9 @@ PanelWindow {
                                 width: 52
                                 height: 52
                                 radius: 26
-                                color: bs.hot ? Theme.fg : Theme.s2
+                                color: bs.hot ? Theme.hi : Theme.s2
                                 border { width: bs.on && !bs.hot ? 1 : 0; color: Theme.fg }
-                                Icon { anchors.centerIn: parent; text: root.icons[bs.modelData] ?? ""; font.pixelSize: 22; color: bs.hot ? Theme.ink : Theme.fg }
+                                Icon { anchors.centerIn: parent; text: root.icons[bs.modelData] ?? ""; font.pixelSize: 22; color: bs.hot ? Theme.onHi : Theme.fg }
                             }
                             Lb {
                                 x: bar.onTop ? (parent.width - width) / 2 : parent.width + 24
@@ -633,7 +633,7 @@ PanelWindow {
                                     height: 125
                                     radius: 18
                                     color: Theme.bg
-                                    border { width: ed.on && edges.activeFocus ? 2 : 1; color: ed.on ? Theme.fg : Theme.s3 }
+                                    border { width: ed.on && edges.activeFocus ? 2 : 1; color: ed.on ? Theme.hi : Theme.s3 }
                                     Behavior on border.color { ColorAnimation { duration: Theme.t } }
                                     Rectangle {
                                         x: 10
@@ -641,7 +641,7 @@ PanelWindow {
                                         width: ed.modelData === "top" ? parent.width - 20 : 16
                                         height: ed.modelData === "top" ? 16 : parent.height - 20
                                         radius: Theme.corner(8)
-                                        color: ed.on ? Theme.fg : Theme.s3
+                                        color: ed.on ? Theme.hi : Theme.s3
                                         Behavior on color { ColorAnimation { duration: Theme.t } }
                                     }
                                     TapHandler { onTapped: Theme.state.barAt = ed.modelData }
@@ -991,7 +991,7 @@ PanelWindow {
                                 height: modelData.lh * map.k - 10
                                 radius: Theme.corner(18)
                                 color: Theme.bg
-                                border { width: sc.on && map.activeFocus ? 2 : 1; color: sc.on ? Theme.fg : Theme.s3 }
+                                border { width: sc.on && map.activeFocus ? 2 : 1; color: sc.on ? Theme.hi : Theme.s3 }
                                 Behavior on border.color { ColorAnimation { duration: Theme.t } }
                                 Image {
                                     anchors { fill: parent; margins: 12 }
@@ -1105,8 +1105,8 @@ PanelWindow {
                         width: 230
                         height: 230
                         radius: 115
-                        color: on ? Theme.fg : Theme.s1
-                        border { width: activeFocus ? 2 : 1; color: activeFocus || on ? Theme.fg : Theme.s2 }
+                        color: on ? Theme.hi : Theme.s1
+                        border { width: activeFocus ? 2 : 1; color: activeFocus || on ? Theme.hi : Theme.s2 }
                         Behavior on color { ColorAnimation { duration: Theme.t } }
                         activeFocusOnTab: true
                         Keys.onPressed: e => {
@@ -1114,12 +1114,12 @@ PanelWindow {
                             Rules.setMode(index);
                             e.accepted = true;
                         }
-                        Ring { anchors { fill: parent; margins: 14 } n: 40; dot: 6; f: (pc.index + 1) / 4; on: pc.on ? Theme.ink : Theme.fg; off: pc.on ? Theme.mute : Theme.s3 }
+                        Ring { anchors { fill: parent; margins: 14 } n: 40; dot: 6; f: (pc.index + 1) / 4; on: pc.on ? Theme.onHi : Theme.fg; off: pc.on ? Theme.mute : Theme.s3 }
                         Column {
                             anchors.centerIn: parent
                             spacing: 10
-                            Num { anchors.horizontalCenter: parent.horizontalCenter; text: pc.modelData.short; font.pixelSize: 54; color: pc.on ? Theme.ink : Theme.fg }
-                            Lb { anchors.horizontalCenter: parent.horizontalCenter; text: pc.modelData.name; color: pc.on ? Theme.ink : Theme.grey }
+                            Num { anchors.horizontalCenter: parent.horizontalCenter; text: pc.modelData.short; font.pixelSize: 54; color: pc.on ? Theme.onHi : Theme.fg }
+                            Lb { anchors.horizontalCenter: parent.horizontalCenter; text: pc.modelData.name; color: pc.on ? Theme.onHi : Theme.grey }
                         }
                         TapHandler { onTapped: Rules.setMode(pc.index) }
                         HoverHandler { cursorShape: Qt.PointingHandCursor }
@@ -1149,9 +1149,9 @@ PanelWindow {
                     width: 110
                     height: 110
                     radius: 30
-                    color: inp.n ? Theme.fg : Theme.s1
+                    color: inp.n ? Theme.hi : Theme.s1
                     border { width: 1; color: Theme.s2 }
-                    Num { anchors.centerIn: parent; text: "A"; font.pixelSize: 54; color: inp.n ? Theme.ink : Theme.fg }
+                    Num { anchors.centerIn: parent; text: "A"; font.pixelSize: 54; color: inp.n ? Theme.onHi : Theme.fg }
                 }
                 Column {
                     anchors.verticalCenter: parent.verticalCenter
@@ -1350,8 +1350,8 @@ PanelWindow {
         width: modelData.span * cell + (modelData.span - 1) * gap
         height: cell
         radius: round ? cell / 2 : Theme.corner(cell * 0.18)
-        color: hot ? Theme.fg : modelData.fits ? Theme.s1 : "transparent"
-        border { width: on ? 2 : 1; color: on ? Theme.fg : modelData.fits ? Theme.s2 : Theme.mute }
+        color: hot ? Theme.hi : modelData.fits ? Theme.s1 : "transparent"
+        border { width: on ? 2 : 1; color: on ? Theme.hi : modelData.fits ? Theme.s2 : Theme.mute }
         z: drag.active ? 1 : 0
         // без target сдвиг — в px сцены, а Stage масштабирован
         readonly property real dx: drag.activeTranslation.x / Theme.s
@@ -1365,8 +1365,8 @@ PanelWindow {
             n: 40
             dot: 4
             f: 0.66
-            on: tile.hot ? Theme.ink : Theme.fg
-            off: tile.hot ? Theme.fade(Theme.ink, 0.15) : Theme.s3
+            on: tile.hot ? Theme.onHi : Theme.fg
+            off: tile.hot ? Theme.fade(Theme.onHi, 0.15) : Theme.s3
         }
         Column {
             anchors.centerIn: parent
@@ -1375,11 +1375,11 @@ PanelWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: root.icons[tile.modelData.id] ?? "?"
                 font.pixelSize: tile.cell * 0.26
-                color: tile.hot ? Theme.ink : tile.modelData.fits ? Theme.fg : Theme.grey
+                color: tile.hot ? Theme.onHi : tile.modelData.fits ? Theme.fg : Theme.grey
                 layer.enabled: true
                 layer.effect: Dm { step: 3 }
             }
-            Lb { visible: tile.cell > 100; anchors.horizontalCenter: parent.horizontalCenter; text: tile.modelData.id; px: 10; color: tile.hot ? Theme.ink : Theme.grey }
+            Lb { visible: tile.cell > 100; anchors.horizontalCenter: parent.horizontalCenter; text: tile.modelData.id; px: 10; color: tile.hot ? Theme.onHi : Theme.grey }
         }
         TapHandler { onTapped: home.tap(tile.modelData.i) }
         // бросок — после сигнала: смена списка пересоздаёт плитки, в том числе эту
