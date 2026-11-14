@@ -4,6 +4,7 @@ import QtQuick.Shapes
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.Networking
 import Quickshell.Services.UPower
 import Quickshell.Wayland
@@ -152,7 +153,7 @@ PanelWindow {
                         required property string modelData
                         readonly property bool quick: modelData !== "mode" && modelData !== "power"
                         sourceComponent: root.parts[modelData] ?? null
-                        visible: !!sourceComponent && (modelData !== "battery" || root.bat.isLaptopBattery)
+                        visible: !!sourceComponent && (modelData !== "battery" || root.bat.isLaptopBattery) && (modelData !== "headset" || !!root.headset.headset)
                         TapHandler { enabled: part.quick; onTapped: root.trayClicked() }
                         // under the pointer: the item turns the accent, like the power button
                         readonly property bool hot: partHov.hovered
@@ -162,7 +163,7 @@ PanelWindow {
             }
         }
     }
-    readonly property var parts: ({ layout: layoutC, wifi: wifiC, bluetooth: btC, sound: soundC, notes: notesC, battery: batC, mode: modeC, power: powerC, cat: catC })
+    readonly property var parts: ({ layout: layoutC, wifi: wifiC, bluetooth: btC, sound: soundC, headset: headsetC, notes: notesC, battery: batC, mode: modeC, power: powerC, cat: catC })
     Component { id: layoutC; Lb { text: Sys.layout; px: 10; color: parent?.hot ? Theme.accent : Theme.grey } }
     // кот RunCat: чем больше cpu, тем быстрее бежит (250 мс на кадр в простое, 50 на полной). cpu опрашивается, пока он в трее;
     // Binding не в делегате — уничтоженный значение не возвращает. Серый как есть, в светлой теме на белом теряется — чёрный, как buds
@@ -217,6 +218,25 @@ PanelWindow {
             text: Sys.muted ? "\u{F075F}" : "\u{F057E}"
             color: parent?.hot ? Theme.accent : Theme.fg
             Notch { onNotch: d => Sys.setVol(Sys.vol + d * 0.05) }
+        }
+    }
+    // Shown only while sound goes to a headset (wired, USB or Bluetooth). The audio-follow-headset
+    // service writes what it switched: a headset with a mic arm when the microphone moved too,
+    // plain headphones when only the output did
+    FileView {
+        id: headsetFile
+        path: Quickshell.env("XDG_RUNTIME_DIR") + "/audio-headset.json"
+        watchChanges: true
+        printErrors: false
+        onFileChanged: reload()
+        onLoaded: { try { root.headset = JSON.parse(text()); } catch (e) { root.headset = ({}); } }
+    }
+    property var headset: ({})
+    Component {
+        id: headsetC
+        Icon {
+            text: root.headset.mic ? "\u{F02CE}" : "\u{F02CB}"
+            color: parent?.hot ? Theme.accent : Theme.fg
         }
     }
     Component {
