@@ -210,7 +210,7 @@ Singleton {
             property bool quickHover: true // быстрые настройки по наведению на правый край
             property bool deckHover: true  // deck — панель снизу по центру, вылезает по наведению на край
             property var deck: ["clock", "weather", "perf", "net", "media"] // её секции по порядку, см. decks
-            property var bar: ["layout", "wifi", "bluetooth", "sound", "headset", "notes", "battery", "mode", "power"] // трей бара сверху вниз, см. bars
+            property var bar: ["layout", "wifi", "bluetooth", "sound", "headset", "battery", "mode", "power"] // трей бара сверху вниз, см. bars
             property bool barTitle: true   // заголовок окна столбиком в баре
             property string barAt: "left" // left или top; за баром едут календарь, карточка батареи, дом, остров и вспышка Glyph
             // свои у монитора, по модели (Theme.sid): { "TS2700-S6-1": { bar: false, home: false, wall: "…", widgets: […] } }; нет — общие (Theme.scr)
