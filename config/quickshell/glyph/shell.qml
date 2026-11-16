@@ -139,6 +139,10 @@ ShellRoot {
     Shortcut { name: "settings"; description: "настройки"; onPressed: prefs.toggle() }
     Shortcut { name: "power"; description: "меню питания"; onPressed: power.visible ? power.close() : power.open() }
     Shortcut { name: "shot"; description: "скриншот"; onPressed: shot.open() }
+    // the same panel, opened straight in another mode
+    Shortcut { name: "shotScreen"; description: "screenshot: whole screen"; onPressed: shot.open(2) }
+    Shortcut { name: "shotWindow"; description: "screenshot: a window"; onPressed: shot.open(1) }
+    Shortcut { name: "shotRecord"; description: "screen recording"; onPressed: shot.open(3) }
     Shortcut { name: "pact"; description: "vpn: clash verge"; onPressed: vpn.toggle() }
     Shortcut { name: "clip"; description: "буфер обмена"; onPressed: clip.toggle() }
     Shortcut { name: "charms"; description: "эмодзи, каомодзи, символы"; onPressed: charms.toggle() }

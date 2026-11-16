@@ -39,8 +39,11 @@ Scope {
     property rect shotRect
     property bool shotRec: false
 
-    function open() {
+    // start: the mode the panel opens in (0 region, 1 window, 2 screen, 3 record)
+    property int startMode: 0
+    function open(start) {
         if (aim.visible) return;
+        startMode = start ?? 0;
         const mon = Hyprland.focusedMonitor;
         scr = Quickshell.screens.find(s => s.name === mon?.name) ?? Quickshell.screens[0];
         Hyprland.refreshToplevels();
@@ -85,7 +88,7 @@ Scope {
             onStreamFinished: {
                 if (!text.trim()) return;
                 root.frozen = freeze.next; // только теперь: файл дописан
-                root.mode = 0;
+                root.mode = root.startMode;
                 root.drag = Qt.rect(0, 0, 0, 0);
                 const s = Theme.s;
                 root.wins = Hyprland.toplevels.values
