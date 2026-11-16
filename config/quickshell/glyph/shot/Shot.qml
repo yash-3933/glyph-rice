@@ -276,7 +276,7 @@ Scope {
                         y: (6 - loupe.py) * loupe.zoom
                     }
                 }
-                Rectangle { x: 80; y: 80; width: 20; height: 20; radius: 10; color: "transparent"; border { width: 1.5; color: Theme.fg } }
+                Rectangle { x: 80; y: 80; width: 20; height: 20; radius: 10; color: "transparent"; border { width: 1.5; color: Theme.accent } }
                 Ring { width: 180; height: 180; n: 48; dot: 3 }
 
                 Pill {
